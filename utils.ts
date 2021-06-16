@@ -1,4 +1,4 @@
-export const getPokemons = async (qty, offset) => {
+export const getPokemons = async (qty: number, offset: number) => {
 	return await fetch(
 		`https://pokeapi.co/api/v2/pokemon?limit=${qty}&offset=${offset}`
 	)
@@ -6,15 +6,15 @@ export const getPokemons = async (qty, offset) => {
 		.catch((e) => console.log(e));
 };
 
-export const filterByQuery = (data, query) => {
-	return data.filter((entry) =>
+export const filterByQuery = (data: any, query: string) => {
+	return data.filter((entry: Array<any>) =>
 		Object.values(entry).some(
 			(val) => typeof val === 'string' && val.includes(query)
 		)
 	);
 };
 
-export const filterToCatch = (data, owned) => {
+export const filterToCatch = (data: Array<any>, owned: Array<any>) => {
 	const filtered = data.filter(
 		(el) => !owned.some((item) => item.name === el.name)
 	);
@@ -22,6 +22,6 @@ export const filterToCatch = (data, owned) => {
 	return filtered;
 };
 
-export const getPokemonId = (url) => {
-	return url.split('pokemon/')[1].replace('/', '');
+export const getPokemonId = (url: string) => {
+	return parseInt(url.split('pokemon/')[1].replace('/', ''));
 };

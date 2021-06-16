@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { FC, useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import PokemonCard from '../components/PokemonCard';
+import TabButton from '../components/UI/TabButton';
 import SearchBar from '../components/SearchBar';
 import {
 	filterByQuery,
@@ -47,8 +48,12 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 		setOffset(offset + 100);
 	};
 
-	const checkIfOwned = (name: string) => {
-		return collection.some((pokemon: any) => pokemon.name === name);
+	const checkIfCaught = (name: string) => {
+		if (collection.length > 0) {
+			return collection.some((pokemon: any) => pokemon.name === name);
+		} else {
+			return false;
+		}
 	};
 
 	return (
@@ -67,36 +72,21 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 			</div>
 			<div className='px-8 md:px-20 py-4'>
 				<div className='w-full inline-flex py-4'>
-					<button
-						onClick={() => setFilterMode('all')}
-						className={`${
-							filterMode === 'all'
-								? 'text-white bg-red-500'
-								: 'bg-white text-red-500'
-						} w-full md:w-52 py-3 rounded-md uppercase font-bold text-xs mr-2 focus:outline-none`}
-					>
-						All
-					</button>
-					<button
-						onClick={() => setFilterMode('owned')}
-						className={`${
-							filterMode === 'owned'
-								? 'text-white bg-red-500'
-								: 'bg-white text-red-500'
-						} w-full md:w-52 py-3 rounded-md uppercase font-bold text-xs mr-2 focus:outline-none`}
-					>
-						My collection
-					</button>
-					<button
-						onClick={() => setFilterMode('toCatch')}
-						className={`${
-							filterMode === 'toCatch'
-								? 'text-white bg-red-500'
-								: 'bg-white text-red-500'
-						} w-full md:w-52 py-3 rounded-md uppercase font-bold text-xs mr-2 focus:outline-none`}
-					>
-						To catch
-					</button>
+					<TabButton
+						title='All'
+						action={() => setFilterMode('all')}
+						selected={filterMode === 'all'}
+					/>
+					<TabButton
+						title='Caught'
+						action={() => setFilterMode('caught')}
+						selected={filterMode === 'caught'}
+					/>
+					<TabButton
+						title='To catch'
+						action={() => setFilterMode('toCatch')}
+						selected={filterMode === 'toCatch'}
+					/>
 				</div>
 				<div className='flex flex-wrap -mx-2 overflow-hidden sm:-mx-2 md:-mx-1 lg:-mx-2 xl:-mx-1'>
 					{filterMode === 'all' &&
@@ -108,15 +98,15 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 								>
 									<PokemonCard
 										name={pokemon.name}
-										owned={checkIfOwned(pokemon.name)}
+										caught={checkIfCaught(pokemon.name)}
 										id={getPokemonId(pokemon.url)}
 									/>
 								</div>
 							);
 						})}
 
-					{filterMode === 'owned' &&
-						filtered
+					{filterMode === 'caught' &&
+						collection
 							.sort((a: any, b: any) => a.id - b.id)
 							.map((pokemon: any, i: number) => (
 								<div
@@ -125,8 +115,8 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 								>
 									<PokemonCard
 										name={pokemon.name}
-										owned
-										id={getPokemonId(pokemon.url)}
+										caught
+										id={pokemon.id}
 									/>
 								</div>
 							))}

@@ -7,7 +7,7 @@ interface CardProps {
 	id: number;
 	type?: string;
 	color?: string;
-	owned?: boolean;
+	caught?: boolean;
 }
 
 const PokemonCard: FC<CardProps> = ({
@@ -15,7 +15,7 @@ const PokemonCard: FC<CardProps> = ({
 	id,
 	type,
 	color,
-	owned,
+	caught,
 }: CardProps) => {
 	return (
 		<Link href={`/pokemon/${name}`}>
@@ -43,7 +43,7 @@ const PokemonCard: FC<CardProps> = ({
 						</div>
 					</div>
 					<div>
-						{owned && <img src='/pokeball.png' className='w-10' />}
+						{caught && <img src='/pokeball.png' className='w-10' />}
 					</div>
 				</div>
 			</a>

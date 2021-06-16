@@ -45,7 +45,7 @@ const Pokemon: FC<PokemonProps> = ({
 		// Check if client-side
 		if (typeof window !== 'undefined') {
 			const current = JSON.parse(
-				localStorage.getItem('collection') || '{}'
+				localStorage.getItem('collection') || '[]'
 			);
 
 			if (current) {
@@ -58,7 +58,7 @@ const Pokemon: FC<PokemonProps> = ({
 	}, [pokemonSchema.name]);
 
 	const addToCollection = () => {
-		const current = JSON.parse(localStorage.getItem('collection') || '{}');
+		const current = JSON.parse(localStorage.getItem('collection') || '[]');
 
 		if (current) {
 			// Add current pokemon to array and store in localstorage
