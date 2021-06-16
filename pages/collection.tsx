@@ -41,7 +41,7 @@ const Collection: FC = () => {
 										id={pokemon.id}
 										type={pokemon.type}
 										color={pokemon.color}
-										owned
+										caught
 									/>
 								</div>
 							))}

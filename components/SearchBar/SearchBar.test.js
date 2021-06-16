@@ -12,10 +12,7 @@ it('renders correctly', () => {
 describe('Input value', () => {
 	it('updates on change', () => {
 		const { queryByPlaceholderText } = render(
-			<SearchBar
-				onChange={(e) => console.log(e)}
-				placeholder='Search pokemon...'
-			/>
+			<SearchBar onChange={jest.fn()} placeholder='Search pokemon...' />
 		);
 
 		const searchInput = queryByPlaceholderText('Search pokemon...');
