@@ -18,7 +18,6 @@ interface DataType {
 const Home: FC<DataType> = ({ data }: DataType) => {
 	const [pokemonList, setPokemonList] = useState(data);
 	const [collection, setCollection] = useState([]);
-	const [filtered, setFiltered] = useState([]);
 	const [filterMode, setFilterMode] = useState('all');
 	const [offset, setOffset] = useState(100);
 	const [query, setQuery] = useState('');
@@ -37,14 +36,16 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 		}
 
 		// Update filtered array
-		setFiltered(filterByQuery(pokemonList, query));
-	}, [query, filterMode, pokemonList]);
+		setPokemonList(filterByQuery(data, query));
+	}, [query, filterMode]);
 
 	const loadPokemon = async () => {
 		const { results } = await getPokemons(100, offset);
 
+		// Add new pokemons to existing array
 		setPokemonList(pokemonList.concat(results));
-		setFiltered(filtered.concat(results));
+
+		// Increase offset
 		setOffset(offset + 100);
 	};
 
@@ -90,7 +91,7 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 				</div>
 				<div className='flex flex-wrap -mx-2 overflow-hidden sm:-mx-2 md:-mx-1 lg:-mx-2 xl:-mx-1'>
 					{filterMode === 'all' &&
-						filtered.map((pokemon: any, i: number) => {
+						pokemonList.map((pokemon: any, i: number) => {
 							return (
 								<div
 									key={i}
@@ -122,7 +123,7 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 							))}
 
 					{filterMode === 'toCatch' &&
-						filterToCatch(filtered, collection).map(
+						filterToCatch(pokemonList, collection).map(
 							(pokemon: any, i: number) => (
 								<div
 									key={i}
