@@ -2,6 +2,8 @@
 
 Simple Pokedex website in **React** + **NextJS** & **TailwindCSS**, all the data is fetched from PokeAPI ([https://pokeapi.co/](https://pokeapi.co/)).
 
+![preview](https://pokedex-alpha-two.vercel.app/preview.png)
+
 ## Live demo
 https://pokedex-alpha-two.vercel.app/
 
