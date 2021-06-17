@@ -25,3 +25,9 @@ export const filterToCatch = (data: Array<any>, owned: Array<any>) => {
 export const getPokemonId = (url: string) => {
 	return parseInt(url.split('pokemon/')[1].replace('/', ''));
 };
+
+export const checkIfCaught = (name: string, collection: Array<any>) => {
+	if (collection.length > 0) {
+		return collection.some((pokemon: any) => pokemon.name === name);
+	} else return false;
+};

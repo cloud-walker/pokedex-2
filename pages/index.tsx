@@ -9,6 +9,7 @@ import {
 	filterToCatch,
 	getPokemonId,
 	getPokemons,
+	checkIfCaught,
 } from '../utils';
 
 interface DataType {
@@ -47,14 +48,6 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 
 		// Increase offset
 		setOffset(offset + 100);
-	};
-
-	const checkIfCaught = (name: string) => {
-		if (collection.length > 0) {
-			return collection.some((pokemon: any) => pokemon.name === name);
-		} else {
-			return false;
-		}
 	};
 
 	return (
@@ -99,7 +92,10 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 								>
 									<PokemonCard
 										name={pokemon.name}
-										caught={checkIfCaught(pokemon.name)}
+										caught={checkIfCaught(
+											pokemon.name,
+											collection
+										)}
 										id={getPokemonId(pokemon.url)}
 									/>
 								</div>
