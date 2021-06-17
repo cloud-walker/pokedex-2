@@ -2,10 +2,12 @@ import { GetServerSideProps } from 'next';
 import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Layout from '../../components/Layout';
+import Meta from '../../components/Meta';
 import Button from '../../components/UI/Button';
 import PokemonHeader from '../../components/PokemonHeader';
 import StatsTable from '../../components/StatsTable';
 import BackButton from '../../components/UI/BackButton';
+import { capitalize } from '../../utils';
 
 interface PokemonProps {
 	name: string;
@@ -74,6 +76,12 @@ const Pokemon: FC<PokemonProps> = ({
 
 	return (
 		<Layout>
+			<Meta
+				title={`${capitalize(name)} | Pokedex - PokeAPI v2`}
+				desc={flavor_text}
+				image={artwork}
+				canonical={`https://pokedex-alpha-two.vercel.app/pokemon/${name}`}
+			/>
 			<div className={`bg-${color}-500 block md:flex`}>
 				<div className='pt-20 md:py-20 block h-full px-8 md:px-20 relative'>
 					<div className='absolute top-2'>

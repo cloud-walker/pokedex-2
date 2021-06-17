@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { FC, useState, useEffect } from 'react';
 import Layout from '../components/Layout';
+import Meta from '../components/Meta';
 import PokemonCard from '../components/PokemonCard';
 import TabButton from '../components/UI/TabButton';
 import SearchBar from '../components/SearchBar';
@@ -52,6 +53,12 @@ const Home: FC<DataType> = ({ data }: DataType) => {
 
 	return (
 		<Layout>
+			<Meta
+				title='Pokedex - PokeAPI v2'
+				desc='Simple Pokedex website in React + NextJS & TailwindCSS, all the data is fetched from PokeAPI'
+				image='/preview.png'
+				canonical='https://pokedex-alpha-two.vercel.app/'
+			/>
 			<div className='h-full flex justify-start items-center pt-20 pb-8'>
 				<div className='px-8 md:px-20 block'>
 					<h1 className='text-5xl max-w-xl font-bold mb-4'>

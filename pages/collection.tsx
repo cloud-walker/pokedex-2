@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
+import Meta from '../components/Meta';
 import PokemonCard from '../components/PokemonCard';
 import BackButton from '../components/UI/BackButton/BackButton';
 
@@ -20,6 +21,12 @@ const Collection: FC = () => {
 
 	return (
 		<Layout>
+			<Meta
+				title='My collection | Pokedex - PokeAPI v2'
+				desc='This is your pokemon collection, all the data is fetched from PokeAPI'
+				image='/preview.png'
+				canonical='https://pokedex-alpha-two.vercel.app/collection'
+			/>
 			<div className='h-full py-12'>
 				<div className='px-8 md:px-20 block'>
 					<BackButton />
