@@ -20,11 +20,11 @@ const Button: FC<ButtonProps> = ({
 		return (
 			<button
 				onClick={action}
-				className={
+				className={`${
 					secondary
-						? `w-full md:w-96 text-center text-${color}-500 bg-white mt-4 px-8 py-5 rounded-md text-xs font-bold hover:opacity-80 uppercase`
-						: `w-full md:w-96 text-center bg-${color}-900 text-white mt-2 px-8 py-5 rounded-md text-xs font-bold hover:opacity-80 uppercase`
-				}
+						? `text-${color}-500 bg-white`
+						: `bg-${color}-900 text-white`
+				} w-full md:w-96 text-center mt-4 px-8 py-5 rounded-md text-xs font-bold hover:opacity-80 uppercase`}
 			>
 				{title}
 			</button>
@@ -34,11 +34,11 @@ const Button: FC<ButtonProps> = ({
 	return (
 		<Link href={href}>
 			<a
-				className={
+				className={`${
 					secondary
-						? `w-full md:w-96 text-center text-${color}-500 bg-white mt-4 px-8 py-5 rounded-md text-xs font-bold hover:opacity-80 uppercase`
-						: `w-full md:w-96 text-center bg-${color}-900 text-white mt-2 px-8 py-5 rounded-md text-xs font-bold hover:opacity-80 uppercase`
-				}
+						? `text-${color}-500 bg-white`
+						: `bg-${color}-900 text-white`
+				} w-full md:w-96 text-center mt-4 px-8 py-5 rounded-md text-xs font-bold hover:opacity-80 uppercase`}
 			>
 				{title}
 			</a>

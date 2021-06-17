@@ -1,8 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import Meta from '../components/Meta';
+import Image from 'next/image';
 import PokemonCard from '../components/PokemonCard';
 import BackButton from '../components/UI/BackButton/BackButton';
+import Togepi from '../public/placeholder.png';
 
 const Collection: FC = () => {
 	const [list, setList] = useState([]);
@@ -54,8 +56,16 @@ const Collection: FC = () => {
 							))}
 						</div>
 					) : (
-						<div className='block'>
-							<p>Collection is empty</p>
+						<div>
+							<p className='mb-8'>
+								You didn't catch any pokemon yet
+							</p>
+							<Image
+								alt='togepi crying placeholder'
+								src={Togepi}
+								width='436'
+								height='337'
+							/>
 						</div>
 					)}
 				</div>

@@ -108,7 +108,11 @@ const Pokemon: FC<PokemonProps> = ({
 					<div className='flex flex-col'>
 						{owned ? (
 							<div
-								className={`w-full md:w-96 text-center text-${color}-500 bg-white mt-4 px-8 py-5 rounded-md text-xs font-bold opacity-50 uppercase`}
+								className={`w-full md:w-96 text-center text-${color}-500 ${
+									color != 'white'
+										? 'bg-white'
+										: 'bg-gray-100'
+								} mt-4 px-8 py-5 rounded-md text-xs font-bold opacity-50 uppercase`}
 							>
 								caught
 							</div>
@@ -122,7 +126,7 @@ const Pokemon: FC<PokemonProps> = ({
 						)}
 						<Button
 							title='View collection'
-							color={color}
+							color={color != 'white' ? color : 'black'}
 							href='/collection'
 						/>
 					</div>
