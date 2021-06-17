@@ -1,5 +1,4 @@
 // API
-
 export const getPokemons = async (qty: number, offset: number) => {
 	return await fetch(
 		`https://pokeapi.co/api/v2/pokemon?limit=${qty}&offset=${offset}`
@@ -34,6 +33,10 @@ export const checkIfCaught = (name: string, collection: Array<any>) => {
 	if (collection.length > 0) {
 		return collection.some((pokemon: any) => pokemon.name === name);
 	} else return false;
+};
+
+export const findPokemonIndexById = (id: number, list: Array<any>) => {
+	return list.findIndex((el) => el.id === id);
 };
 
 // Formatting

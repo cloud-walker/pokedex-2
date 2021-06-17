@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 interface SearchBarProps {
-	onChange: any;
+	onChange: (_: string) => void;
 	placeholder: string;
 }
 

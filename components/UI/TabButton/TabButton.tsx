@@ -3,7 +3,7 @@ import { FC } from 'react';
 interface ButtonProps {
 	title: string;
 	selected: boolean;
-	action: any;
+	action: () => void;
 }
 
 const TabButton: FC<ButtonProps> = ({

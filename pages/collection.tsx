@@ -5,6 +5,7 @@ import Image from 'next/image';
 import PokemonCard from '../components/PokemonCard';
 import BackButton from '../components/UI/BackButton/BackButton';
 import Togepi from '../public/placeholder.png';
+import { findPokemonIndexById } from '../utils';
 
 const Collection: FC = () => {
 	const [list, setList] = useState([]);
@@ -14,12 +15,31 @@ const Collection: FC = () => {
 			const data = JSON.parse(localStorage.getItem('collection') || '{}');
 
 			if (!data) {
-				localStorage.setItem('collection', '[]');
+				localStorage.setItem('collection', '{}');
 			} else {
 				setList(data);
 			}
 		}
 	}, []);
+
+	const resetCollection = () => {
+		localStorage.setItem('collection', '[]');
+		setList([]);
+	};
+
+	const removePokemonById = (id: number) => {
+		const collection = JSON.parse(
+			localStorage.getItem('collection') || '{}'
+		);
+
+		const index = findPokemonIndexById(id, collection);
+
+		collection.splice(index, 1);
+		localStorage.setItem('collection', JSON.stringify(collection));
+
+		// Update collection
+		setList(collection);
+	};
 
 	return (
 		<Layout>
@@ -32,9 +52,19 @@ const Collection: FC = () => {
 			<div className='h-full py-12'>
 				<div className='px-8 md:px-20 block'>
 					<BackButton />
-					<h1 className='text-5xl max-w-xl font-bold my-4'>
+					<br />
+
+					<h1 className='text-5xl max-w-xl font-bold my-4 mr-8'>
 						My collection
 					</h1>
+					{list.length > 0 && (
+						<button
+							className='text-xs uppercase text-red-500 font-bold focus:outline-none'
+							onClick={() => resetCollection()}
+						>
+							Clear collection
+						</button>
+					)}
 				</div>
 
 				<div className='px-8 md:px-20 py-4 '>
@@ -51,6 +81,9 @@ const Collection: FC = () => {
 										type={pokemon.type}
 										color={pokemon.color}
 										caught
+										withRemove={() =>
+											removePokemonById(pokemon.id)
+										}
 									/>
 								</div>
 							))}

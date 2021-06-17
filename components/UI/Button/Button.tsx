@@ -5,7 +5,7 @@ interface ButtonProps {
 	title: string;
 	color: string;
 	href?: any;
-	action?: any;
+	action?: () => void;
 	secondary?: boolean;
 }
 
