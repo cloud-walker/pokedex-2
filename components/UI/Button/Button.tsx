@@ -24,7 +24,7 @@ const Button: FC<ButtonProps> = ({
 					secondary
 						? `text-${color}-500 bg-white`
 						: `bg-${color}-900 text-white`
-				} w-full md:w-96 text-center mt-4 px-8 py-5 rounded-md text-xs font-bold hover:opacity-80 uppercase`}
+				} w-full md:w-96 text-center mt-4 px-8 py-5 rounded-md text-xs font-bold hover:opacity-80 uppercase focus:outline-none`}
 			>
 				{title}
 			</button>

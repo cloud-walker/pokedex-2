@@ -1,5 +1,6 @@
 import '../styles/global.css';
 import type { AppProps } from 'next/app';
+import 'sweetalert2/src/sweetalert2.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return <Component {...pageProps} />;

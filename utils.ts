@@ -16,7 +16,9 @@ export const getPokemonId = (url: string) => {
 export const filterByQuery = (data: any, query: string) => {
 	return data.filter((entry: Array<any>) =>
 		Object.values(entry).some(
-			(val) => typeof val === 'string' && val.includes(query)
+			(val) =>
+				typeof val === 'string' &&
+				val.toLowerCase().includes(query.toLowerCase())
 		)
 	);
 };

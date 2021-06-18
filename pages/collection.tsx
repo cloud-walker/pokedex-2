@@ -5,7 +5,8 @@ import Image from 'next/image';
 import PokemonCard from '../components/PokemonCard';
 import BackButton from '../components/UI/BackButton/BackButton';
 import Togepi from '../public/placeholder.png';
-import { findPokemonIndexById } from '../utils';
+import Swal from 'sweetalert2';
+import { capitalize } from '../utils';
 
 const Collection: FC = () => {
 	const [list, setList] = useState([]);
@@ -23,22 +24,42 @@ const Collection: FC = () => {
 	}, []);
 
 	const resetCollection = () => {
-		localStorage.setItem('collection', '[]');
-		setList([]);
+		Swal.fire({
+			title: 'Are you sure?',
+			icon: 'warning',
+			showDenyButton: true,
+			confirmButtonText: `Yes`,
+			denyButtonText: `No`,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				localStorage.setItem('collection', '[]');
+				setList([]);
+			}
+		});
 	};
 
-	const removePokemonById = (id: number) => {
-		const collection = JSON.parse(
-			localStorage.getItem('collection') || '{}'
-		);
+	const removePokemonByIndex = (i: number) => {
+		const pokemon: any = list[i];
 
-		const index = findPokemonIndexById(id, collection);
+		Swal.fire({
+			title: `Remove ${capitalize(pokemon.name)}?`,
+			icon: 'warning',
+			showDenyButton: true,
+			confirmButtonText: `Yes`,
+			denyButtonText: `No`,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				const collection = JSON.parse(
+					localStorage.getItem('collection') || '{}'
+				);
 
-		collection.splice(index, 1);
-		localStorage.setItem('collection', JSON.stringify(collection));
+				collection.splice(i, 1);
+				localStorage.setItem('collection', JSON.stringify(collection));
 
-		// Update collection
-		setList(collection);
+				// Update collection
+				setList(collection);
+			}
+		});
 	};
 
 	return (
@@ -81,7 +102,7 @@ const Collection: FC = () => {
 										type={pokemon.type}
 										caught
 										withRemove={() =>
-											removePokemonById(pokemon.id)
+											removePokemonByIndex(i)
 										}
 									/>
 								</div>
