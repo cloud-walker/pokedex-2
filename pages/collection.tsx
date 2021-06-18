@@ -6,7 +6,7 @@ import PokemonCard from '../components/PokemonCard';
 import BackButton from '../components/UI/BackButton/BackButton';
 import Togepi from '../public/placeholder.png';
 import Swal from 'sweetalert2';
-import { capitalize } from '../utils';
+import { capitalize, findPokemonIndexById } from '../utils';
 
 const Collection: FC = () => {
 	const [list, setList] = useState([]);
@@ -38,8 +38,9 @@ const Collection: FC = () => {
 		});
 	};
 
-	const removePokemonByIndex = (i: number) => {
-		const pokemon: any = list[i];
+	const removePokemonById = (id: number) => {
+		const index = findPokemonIndexById(id, list);
+		const pokemon: any = list[index];
 
 		Swal.fire({
 			title: `Remove ${capitalize(pokemon.name)}?`,
@@ -53,7 +54,7 @@ const Collection: FC = () => {
 					localStorage.getItem('collection') || '{}'
 				);
 
-				collection.splice(i, 1);
+				collection.splice(index, 1);
 				localStorage.setItem('collection', JSON.stringify(collection));
 
 				// Update collection
@@ -91,22 +92,25 @@ const Collection: FC = () => {
 				<div className='px-8 md:px-20 py-4 '>
 					{list.length ? (
 						<div className='flex flex-wrap -mx-2 overflow-hidden sm:-mx-2 md:-mx-1 lg:-mx-2 xl:-mx-1'>
-							{list.map((pokemon: any, i: number) => (
-								<div
-									key={i}
-									className='my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-1/2 md:my-1 md:px-1 md:w-1/3 lg:my-2 lg:px-2 lg:w-1/3 xl:my-1 xl:px-1 xl:w-1/4'
-								>
-									<PokemonCard
-										name={pokemon.name}
-										id={pokemon.id}
-										type={pokemon.type}
-										caught
-										withRemove={() =>
-											removePokemonByIndex(i)
-										}
-									/>
-								</div>
-							))}
+							{list
+								.slice()
+								.sort((a: any, b: any) => a.id - b.id)
+								.map((pokemon: any, i: number) => (
+									<div
+										key={i}
+										className='my-2 px-2 w-full overflow-hidden sm:my-2 sm:px-2 sm:w-1/2 md:my-1 md:px-1 md:w-1/3 lg:my-2 lg:px-2 lg:w-1/3 xl:my-1 xl:px-1 xl:w-1/4'
+									>
+										<PokemonCard
+											name={pokemon.name}
+											id={pokemon.id}
+											type={pokemon.type}
+											caught
+											withRemove={() =>
+												removePokemonById(pokemon.id)
+											}
+										/>
+									</div>
+								))}
 						</div>
 					) : (
 						<div>
