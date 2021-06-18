@@ -7,7 +7,6 @@ interface CardProps {
 	name: string;
 	id: number;
 	type?: string;
-	color?: string;
 	caught?: boolean;
 	withRemove?: () => void;
 }
@@ -16,7 +15,6 @@ const PokemonCard: FC<CardProps> = ({
 	name,
 	id,
 	type,
-	color,
 	caught,
 	withRemove,
 }: CardProps) => {
@@ -27,7 +25,7 @@ const PokemonCard: FC<CardProps> = ({
 					<div
 						className={`${
 							withRemove ? 'rounded-t-md' : 'rounded-md'
-						} w-full inline-flex justify-between bg-${color}-500 p-4 bg-gray-200 hover:opacity-80`}
+						} w-full inline-flex justify-between p-4 bg-gray-200 hover:opacity-80`}
 					>
 						<div className='inline-flex'>
 							<div className='rounded-full w-20 mr-4'>
@@ -39,9 +37,7 @@ const PokemonCard: FC<CardProps> = ({
 								/>
 							</div>
 							<div className='block'>
-								<p
-									className={`text-lg uppercase font-bold text-${color}-200`}
-								>
+								<p className={`text-lg uppercase font-bold`}>
 									{name}
 								</p>
 								<span>#{id}</span>

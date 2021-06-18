@@ -79,7 +79,6 @@ const Collection: FC = () => {
 										name={pokemon.name}
 										id={pokemon.id}
 										type={pokemon.type}
-										color={pokemon.color}
 										caught
 										withRemove={() =>
 											removePokemonById(pokemon.id)
